@@ -16,18 +16,87 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #F7FFF0;
+  overflow: hidden;
+  color: black;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* animations 
+1. Marquee
+*/
+
+
+.number {
+  width: 5rem;
+  display: flex;
+  align-items: center;
+}
+
+.inner {
+  display: flex;
+  animation: slide 40s linear infinite;
+}
+
+.inner div {
+  display: flex;
+  margin: 1rem 0;
+  height: 4rem;
+}
+
+.upper p {
+  /* font-family: "JetBrains", monospace; */
+  color: black;
+  /* color: #777676; */
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  /* font-family: JetBrains Mono; */
+  /* font-size: 0.9375rem; */
+  /* font-style: normal; */
+  font-weight: 600;
+  line-height: normal;
+}
+
+.odd p {
+  color: #777676;
+  /* color: ; */
+  /* font-family: var(--font-family); */
+/* text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+/* font-family: JetBrains Mono; */
+/* font-size: 0.9375rem; */
+/* font-style: normal; */
+/* font-weight: 700; */
+/* line-height: normal; */
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.test {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-screen::-webkit-scrollbar {
+    display: none;
+}
+.main-screen {  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
