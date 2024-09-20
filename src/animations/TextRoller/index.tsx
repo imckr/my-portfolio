@@ -113,7 +113,7 @@ export default function Animation() {
   return (
     <>
       <div
-        className={`${Jet_bold.className} mt-1 w-80 h-[4.5rem] overflow-visible flex text-6xl text-center items-center`}
+        className={`${Jet_bold.className} mt-1 w-80 h-[4.5rem] overflow-hidden flex text-6xl text-center items-center`}
         onMouseEnter={roller}
       >
         <div

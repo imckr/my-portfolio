@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link"
 import { Jet } from "@/Fonts/font";
 import { useGSAP } from "@gsap/react";
 import { motion, AnimatePresence, delay } from "framer-motion";
@@ -19,17 +20,21 @@ export default function Indexes() {
 
   return (
     <>
-        <motion.div
-          className={`${Jet.className} indexes-container text-6xl p-20 flex flex-col gap-8 w-[69.7vw] h-[58.5vh]`}
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1,}}
-          exit={{ opacity: 0, scale: 0.5,}}
-        >
-          <p className="option">/ Home</p>
-          <p className="option">/ Projects</p>
-          <p className="option">/ Blog</p>
-          <p className="option">/ About</p>
-        </motion.div>
+      <motion.div
+        className={`${Jet.className} indexes-container text-6xl p-20 flex flex-col gap-8 w-[69.7vw] h-[58.5vh]`}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.5 }}
+      >
+        <p className="option">
+          <Link href={"/"} legacyBehavior={true}>
+            / Home
+          </Link>
+        </p>
+        <p className="option"><Link href={"/Projects"}>/ Projects</Link></p>
+        <p className="option"><Link href={"/Blog"}>/ Blog</Link></p>
+        <p className="option"><Link href={"/About"}>/ About</Link></p>
+      </motion.div>
     </>
   );
 }
