@@ -87,6 +87,23 @@ body {
   }
 }
 
+@keyframes Blinking {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.blinking {
+  color: #777676;
+  animation: Blinking 2s infinite ease-in;
+}
+
 .test {
   display: flex;
   flex-direction: row;
