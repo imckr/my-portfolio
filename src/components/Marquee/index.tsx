@@ -1,6 +1,7 @@
 'use client'
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+
 export default function MarqueeTop() {
 
   let number = "0100101";

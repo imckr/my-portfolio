@@ -31,9 +31,17 @@ export default function Indexes() {
             / Home
           </Link>
         </p>
-        <p className="option"><Link href={"/Projects"}>/ Projects</Link></p>
-        <p className="option"><Link href={"/Blog"}>/ Blog</Link></p>
-        <p className="option"><Link href={"/About"}>/ About</Link></p>
+        <p className="option">
+          <Link href={"/Projects"} legacyBehavior={true}>
+            / Projects
+          </Link>
+        </p>
+        <p className="option">
+          <Link href={"/Blog"}>/ Blog</Link>
+        </p>
+        <p className="option">
+          <Link href={"/About"}>/ About</Link>
+        </p>
       </motion.div>
     </>
   );

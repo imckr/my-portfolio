@@ -15,7 +15,7 @@ export default function Home() {
       </div>
       <Margins />
       <Slogan />
-      <PageLabel />
+      {/* <PageLabel ind={0}/> */}
       <Screen />
 
       <div

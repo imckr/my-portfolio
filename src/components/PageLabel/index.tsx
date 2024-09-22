@@ -1,17 +1,31 @@
 "use client";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Jet } from "@/Fonts/font";
 
-export default function PageLabel() {
+interface pageIndex {
+  ind : number;
+}
+
+export default function PageLabel(props: pageIndex) {
 
   const H = useRef<HTMLParagraphElement>(null);
   const O = useRef<HTMLParagraphElement>(null);
   const M = useRef<HTMLParagraphElement>(null);
   const E = useRef<HTMLParagraphElement>(null);
 
-  useGSAP(() => {
+  const P = useRef<HTMLParagraphElement>(null);
+  const R = useRef<HTMLParagraphElement>(null);
+  const J = useRef<HTMLParagraphElement>(null);
+  const C = useRef<HTMLParagraphElement>(null);
+  const T = useRef<HTMLParagraphElement>(null);
+
+  const A = useRef<HTMLParagraphElement>(null);
+  const B = useRef<HTMLParagraphElement>(null);
+  const U = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
     
     gsap.from(E.current, {
       y: -250,
@@ -37,26 +51,28 @@ export default function PageLabel() {
       duration: 1,
       delay: 3,
     });
+
+    console.log("Success" + props.ind )
   });
 
   return (
-    <>
-      <div
-        className={`absolute flex flex-col right-[4%] ${Jet.className} top-[-1%] text-4xl`}
-      >
-        <p className="text-center font-extrabold" ref={H}>
-          H
-        </p>
-        <p className="text-center font-extrabold" ref={O}>
-          O
-        </p>
-        <p className="text-center font-extrabold" ref={M}>
-          M
-        </p>
-        <p className="text-center font-extrabold" ref={E}>
-          E
-        </p>
-      </div>
+    <>  
+        <div
+          className={`absolute flex flex-col right-[4%] ${Jet.className} top-[-1%] text-4xl`}
+        >
+          <p className="text-center font-extrabold" ref={H}>
+            H
+          </p>
+          <p className="text-center font-extrabold" ref={O}>
+            O
+          </p>
+          <p className="text-center font-extrabold" ref={M}>
+            M
+          </p>
+          <p className="text-center font-extrabold" ref={E}>
+            E
+          </p>
+        </div>
     </>
   );
 }

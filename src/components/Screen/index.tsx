@@ -6,17 +6,25 @@ import TextRoller from "@/animations/TextRoller";
 import { motion, AnimatePresence } from "framer-motion";
 import Indexes from "@/components/Indexes";
 import { Menu } from "@/animations/animScripts";
+import PageLabel from "@/components/PageLabel"; // Add this line to import PageLabel
+
+
 export default function Screen() {
+
+
   const [flag, setFlag] = useState(false);
+  const [ind, setInd] = useState<number>(0);
 
   const handleOnClickMenu = () => {
     Menu(".index", flag, ".indexC");
 
     setFlag(!flag);
+    setInd(1);
   };
 
   return (
     <>
+      <PageLabel ind={ind} />
       <div className="flex justify-center w-screen h-screen">
         <div className="flex flex-col justify-start mt-[12vh] w-[70vw] h-[70vh] border-black border-2 rounded-xl overflow-hidden">
           <div className="flex justify-between w-[70vw] items-center h-[5vh]">
@@ -28,7 +36,7 @@ export default function Screen() {
                 height={17}
                 alt="home"
               />
-              <p className={`${inter_bold.className}`}>/ Home</p>
+              <p className={`${inter_bold.className}`}>/ Home</p> {/*has to be change after scrolling*/}
             </div>
 
             <div className="flex">
