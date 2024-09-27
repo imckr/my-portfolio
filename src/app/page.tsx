@@ -14,7 +14,7 @@ export default function Home() {
         <h1>{"// Under Development Available Soon..."}</h1>
       </div>
       <Margins />
-      <Slogan />
+      <Slogan /> 
       {/* <PageLabel ind={0}/> */}
       <Screen />
 

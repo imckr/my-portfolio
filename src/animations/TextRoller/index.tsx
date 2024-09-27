@@ -1,8 +1,8 @@
 "use client";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Jet_bold } from "@/Fonts/font";
 
+import gsap from "gsap";
 const textE = {
   title: "Even",
   style: "flex flex-col gap-4",
