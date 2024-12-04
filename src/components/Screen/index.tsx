@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { Menu } from "@/animations/animScripts";
 import InnerContents from "../InnerContents";
-import {useGSAP} from "@gsap/react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 gsap.registerPlugin();
@@ -15,7 +15,7 @@ export default function Screen() {
         <p key="1">HOME</p>,
         <p key="2">PROJECTS</p>,
         <p key="3">BLOG</p>,
-        <p key="4">ABOUT</p>
+        <p key="4">ABOUT</p>,
     ];
 
     const indexRef = useRef(null);
@@ -30,13 +30,12 @@ export default function Screen() {
                 duration: 5,
                 x: -100,
                 opacity: 1,
-            })
+            });
 
-            console.log("running")
-        }else {
-          console.log("not running")
+            console.log("running");
+        } else {
+            console.log("not running");
         }
-
     };
 
     return (
@@ -84,7 +83,7 @@ export default function Screen() {
                                         height={17}
                                         alt="menu"
                                     />
-                                 ) : (
+                                ) : (
                                     <Image
                                         src="./images/Menu.svg"
                                         className="index w-7 h-7"
@@ -92,7 +91,7 @@ export default function Screen() {
                                         height={17}
                                         alt="menu"
                                     />
-                               )} 
+                                )}
                             </div>
                         </div>
                     </div>
@@ -111,6 +110,7 @@ export default function Screen() {
                                 height={17}
                                 className="w-6 h-6 mb-1"
                             />
+
                             <Image
                                 src="./images/twitter.svg"
                                 alt="sociallinks"
@@ -118,13 +118,19 @@ export default function Screen() {
                                 height={17}
                                 className="w-6 h-6"
                             />
-                            <Image
-                                src="./images/github.svg"
-                                alt="sociallinks"
-                                width={17}
-                                height={17}
-                                className="w-6 h-6"
-                            />
+                            <a
+                                href="https://github.com/imckr"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <Image
+                                    src="./images/github.svg"
+                                    alt="sociallinks"
+                                    width={17}
+                                    height={17}
+                                    className="w-6 h-6"
+                                />
+                            </a>
                             <Image
                                 src="./images/mail.svg"
                                 alt="sociallinks"
