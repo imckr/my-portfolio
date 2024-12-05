@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <div className={`absolute top-[60%] left-[32%] ${inter_bold.className} text-4xl blinking`}>
-        <h1>{"// Under Development Available Soon..."}</h1>
+        <h1>{"// Under Development"}</h1>
       </div>
       <Margins />
       <Slogan /> 

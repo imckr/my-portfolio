@@ -6,17 +6,25 @@ import { Menu } from "@/animations/animScripts";
 import InnerContents from "../InnerContents";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import {handleEmailRedirect, handleTransition} from "@/Functions/handlers";
 
 gsap.registerPlugin();
 
 export default function Screen() {
     const [flag, setFlag] = useState(false);
     const indexes = [
-        <p key="1">HOME</p>,
-        <p key="2">PROJECTS</p>,
-        <p key="3">BLOG</p>,
-        <p key="4">ABOUT</p>,
+        <p key="1" >HOME</p>,
+        <p key="2" >PROJECTS</p>,
+        <p key="2" onClick={handleTransition}>ASSIGNMENT</p>,
+        <p key="3" >BLOG</p>,
+        <p key="4" >ABOUT</p>,
     ];
+
+    const twitterLink: string = "https://x.com/ChintuRajwal";
+    const gitLink: string = "https://github.com/imckr";
+    // const facebookLink: string = "https://www.facebook.com/chetan.rajwal.14";
+    const linkedInLink: string =
+        "https://www.linkedin.com/in/chandra-kumar-rajwal-31774622a";
 
     const indexRef = useRef(null);
 
@@ -32,7 +40,7 @@ export default function Screen() {
                 opacity: 1,
             });
 
-            console.log("running");
+            
         } else {
             console.log("not running");
         }
@@ -103,26 +111,33 @@ export default function Screen() {
                     <div className="flex justify-between py-[1vh] px-[1.6vh]">
                         <p>Copyright ©2023 All rights reserved</p>
                         <div className="flex gap-5 items-center cursor-pointer">
-                            <Image
-                                src="./images/linkedin.svg"
-                                alt="sociallinks"
-                                width={17}
-                                height={17}
-                                className="w-6 h-6 mb-1"
-                            />
-
-                            <Image
-                                src="./images/twitter.svg"
-                                alt="sociallinks"
-                                width={17}
-                                height={17}
-                                className="w-6 h-6"
-                            />
                             <a
-                                href="https://github.com/imckr"
+                                href={linkedInLink}
                                 target="_blank"
                                 rel="noreferrer"
                             >
+                                <Image
+                                    src="./images/linkedin.svg"
+                                    alt="sociallinks"
+                                    width={17}
+                                    height={17}
+                                    className="w-6 h-6 mb-1"
+                                />
+                            </a>
+                            <a
+                                href={twitterLink}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <Image
+                                    src="./images/twitter.svg"
+                                    alt="sociallinks"
+                                    width={17}
+                                    height={17}
+                                    className="w-6 h-6"
+                                />
+                            </a>
+                            <a href={gitLink} target="_blank" rel="noreferrer">
                                 <Image
                                     src="./images/github.svg"
                                     alt="sociallinks"
@@ -137,6 +152,7 @@ export default function Screen() {
                                 width={17}
                                 height={17}
                                 className="w-6 h-7"
+                                onClick={handleEmailRedirect}
                             />
                         </div>
                     </div>
