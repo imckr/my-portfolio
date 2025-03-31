@@ -6,18 +6,22 @@ import { Menu } from "@/animations/animScripts";
 import InnerContents from "../InnerContents";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import {handleEmailRedirect, handleTransition} from "@/Functions/handlers";
+import { handleEmailRedirect, handleTransition } from "@/Functions/handlers";
+import Screen1 from "./Screen1";
+import Screen2 from "./Screen2";
 
 gsap.registerPlugin();
 
 export default function Screen() {
     const [flag, setFlag] = useState(false);
+    const indC = useRef<HTMLImageElement>(null)
+    const indN = useRef<HTMLImageElement>(null)
     const indexes = [
-        <p key="1" >HOME</p>,
-        <p key="2" >PROJECTS</p>,
-        <p key="2" onClick={handleTransition}>ASSIGNMENT</p>,
-        <p key="3" >BLOG</p>,
-        <p key="4" >ABOUT</p>,
+        <p key="1">HOME</p>,
+        <p key="2">PROJECTS</p>,
+        // <p key="2" onClick={handleTransition}>ASSIGNMENT</p>,
+        <p key="3">BLOG</p>,
+        <p key="4">ABOUT</p>,
     ];
 
     const twitterLink: string = "https://x.com/ChintuRajwal";
@@ -28,19 +32,39 @@ export default function Screen() {
 
     const indexRef = useRef(null);
 
-    const handleOnClickMenu = async () => {
-        await Menu(".index", flag, ".indexC");
-        await setFlag(!flag);
+    const handleOnClickMenu = () => {
+        // Menu(".index", ".indexC", flag);
+        const tl = gsap.timeline();
+        if (flag) {
+            tl.to(indN, {
+                opacity: 0,
+                duration: 0.3,
+                ease: "power4.inOut",
+            }).to(indC, {
+                opacity: 1,
+                duration: 0.3,
+                ease: "power4.inOut",
+            });
+        } else {
+            tl.to(indC, {
+                opacity: 0,
+                duration: 0.3,
+                ease: "power4.inOut",
+            }).to(indN, {
+                opacity: 1,
+                duration: 0.3,
+                ease: "power4.inOut",
+            });
+        }
+        setFlag(!flag);
 
         if (!flag) {
-            const tl = gsap.timeline();
-            tl.from(indexRef, {
-                duration: 5,
+            const tl2 = gsap.timeline();
+            tl2.from(indexRef, {
+                duration: 2,
                 x: -100,
-                opacity: 1,
+                opacity: 0,
             });
-
-            
         } else {
             console.log("not running");
         }
@@ -90,6 +114,7 @@ export default function Screen() {
                                         width={17}
                                         height={17}
                                         alt="menu"
+                                        ref={indC}
                                     />
                                 ) : (
                                     <Image
@@ -98,16 +123,14 @@ export default function Screen() {
                                         width={17}
                                         height={17}
                                         alt="menu"
+                                        ref={indN}
                                     />
                                 )}
                             </div>
                         </div>
                     </div>
-                    <div className="main-screen w-[69.8vw] h-[60vh] flex justify-center items-center border-black border-y-2 overflow-hidden">
-                        <div className="making_it_component_in_few_minutes">
-                            <InnerContents />
-                        </div>
-                    </div>
+                    {/* <Screen1/> */}
+                    <Screen2 />
                     <div className="flex justify-between py-[1vh] px-[1.6vh]">
                         <p>Copyright ©2023 All rights reserved</p>
                         <div className="flex gap-5 items-center cursor-pointer">
