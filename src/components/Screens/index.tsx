@@ -20,7 +20,9 @@ export default function Screen() {
         <p key="1">HOME</p>,
         <p key="2">PROJECTS</p>,
         // <p key="2" onClick={handleTransition}>ASSIGNMENT</p>,
-        <p key="3">BLOG</p>,
+        <p key="3" onClick={handleTransition}>
+            BLOG
+        </p>,
         <p key="4">ABOUT</p>,
     ];
 

@@ -6,7 +6,6 @@ import { motion, AnimatePresence, delay } from "framer-motion";
 import { useEffect } from "react";
 import gsap from "gsap";
 
-
 export default function Indexes() {
     // useGSAP(() => {
     //   const tl = gsap.timeline();
@@ -34,9 +33,7 @@ export default function Indexes() {
                     <Link href={"/Projects"}>/ Projects</Link>
                 </p>
                 <p className="option">
-                    <Link href={"https://ckr-blog.vercel.app/"}>
-                        / Blog
-                    </Link>
+                    <Link href={"/Blog"}>/ Blog</Link>
                 </p>
                 <p className="option">
                     <Link href={"/About"}>/ About</Link>

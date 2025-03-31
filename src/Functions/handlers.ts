@@ -4,7 +4,7 @@ export const handleEmailRedirect = () => {
 
 export const handleTransition = () => { 
 
-    window.location.href = "https://www.youtube.com/playlist?list=PLnPH-5sryEIL4sFyQpHT46_QhiFT9Ze75";
+    window.location.href = "https://ckr-blog.vercel.app/";
 
 };
 
