@@ -131,8 +131,8 @@ export default function Screen() {
                             </div>
                         </div>
                     </div>
-                    {/* <Screen1/> */}
-                    <Screen2 />
+                    <Screen1/>
+                    {/* <Screen2 /> */}
                     <div className="flex justify-between py-[1vh] px-[1.6vh]">
                         <p>Copyright ©2023 All rights reserved</p>
                         <div className="flex gap-5 items-center cursor-pointer">
