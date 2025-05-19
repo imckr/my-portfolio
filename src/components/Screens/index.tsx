@@ -14,11 +14,12 @@ gsap.registerPlugin();
 
 export default function Screen() {
     const [flag, setFlag] = useState(false);
+    const [page, setPage] = useState(0);
     const indC = useRef<HTMLImageElement>(null)
     const indN = useRef<HTMLImageElement>(null)
     const indexes = [
-        <p key="1">HOME</p>,
-        <p key="2">PROJECTS</p>,
+        <p key="1" onClick={()=>setPage(0)}>HOME</p>,
+        <p key="2" onClick={()=>setPage(1)}>PROJECTS</p>,
         // <p key="2" onClick={handleTransition}>ASSIGNMENT</p>,
         <p key="3" onClick={handleTransition}>
             BLOG
@@ -85,7 +86,7 @@ export default function Screen() {
                                 height={17}
                                 alt="home"
                             />
-                            <p className={`${inter_bold.className}`}>/ Home</p>{" "}
+                            <p className={`${inter_bold.className}`}>/ { page === 0 ? ("Home") : page === 1 ? ("Projects") : ("")}</p>{" "}
                         </div>
 
                         <div className="flex">
@@ -131,7 +132,16 @@ export default function Screen() {
                             </div>
                         </div>
                     </div>
-                    <Screen1/>
+                    {
+                        page === 0 ? (
+                            <Screen1 />
+                        ) : page === 1 ? (
+                            <Screen2 />
+                        ) : (
+                            <></>
+                        )
+                    }
+                    {/* <Screen1/> */}
                     {/* <Screen2 /> */}
                     <div className="flex justify-between py-[1vh] px-[1.6vh]">
                         <p>Copyright ©2023 All rights reserved</p>

@@ -1,7 +1,7 @@
 "use client";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Jet } from "@/Fonts/font";
 import TextRoller from "@/animations/TextRoller";
 
@@ -11,32 +11,36 @@ export default function Screen1() {
     const M = useRef<HTMLParagraphElement>(null);
     const E = useRef<HTMLParagraphElement>(null);
 
+    const [del, setDel] = useState(1);
+
     useGSAP(() => {
         gsap.from(E.current, {
             y: -250,
             ease: "back.out(2.3)",
             duration: 1,
-            delay: 3,
+            delay: del,
         });
         gsap.from(M.current, {
             y: -300,
             ease: "back.out(1.9)",
             duration: 1,
-            delay: 3,
+            delay: del,
         });
         gsap.from(O.current, {
             y: -350,
             ease: "back.out(1.5)",
             duration: 1,
-            delay: 3,
+            delay: del,
         });
         gsap.from(H.current, {
             y: -400,
             ease: "back.out(1.1)",
             duration: 1,
-            delay: 3,
+            delay: del,
         });
     });
+
+
 
     return (
         <div className="main-screen w-[69.8vw] h-[60vh] flex justify-center items-center border-black border-y-2 overflow-hidden">
