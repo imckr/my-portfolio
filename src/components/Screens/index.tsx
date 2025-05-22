@@ -18,6 +18,7 @@ export default function Screen() {
     const [page, setPage] = useState(0);
     const indC = useRef<HTMLImageElement>(null);
     const indN = useRef<HTMLImageElement>(null);
+    const mainScreen = useRef<HTMLDivElement>(null);
     const indexes = [
         <p key="1" onClick={() => setPage(0)}>
             HOME
@@ -29,7 +30,7 @@ export default function Screen() {
         <p key="3" onClick={handleTransition}>
             BLOG
         </p>,
-        <p key="4">ABOUT</p>,
+        <p key="4" onClick={() => setPage(2)}>ABOUT</p>,
     ];
 
     const twitterLink: string = "https://x.com/ChintuRajwal";
@@ -106,11 +107,24 @@ export default function Screen() {
         return () => window.removeEventListener("wheel", handleWheel);
     }, []);
 
+    useGSAP(() => {
+        gsap.fromTo(mainScreen.current, {
+            width: "0vw",
+        }, {
+            width: "70vw",
+            duration: 6,
+            ease: "back.out(1.2)",
+        })
+    },[page])
+
     return (
         <>
             <div className="bg flex justify-center w-screen h-screen">
-                <div className="inner-screen flex flex-col justify-start mt-[12vh] w-[70vw] h-[70vh] border-black border-2 rounded-xl overflow-hidden">
-                    <div className="flex justify-between w-[70vw] items-center h-[5vh]">
+                <div
+                    className="inner-screen flex flex-col justify-start mt-[12vh] w-[70vw] h-[70vh] border-black border-2 rounded-xl overflow-hidden"
+                    ref={mainScreen}
+                >
+                    <div className="flex justify-between w-full items-center h-[5vh]">
                         <div className="ml-4 flex items-center gap-2">
                             <Image
                                 src="./images/HomeIcon.svg"

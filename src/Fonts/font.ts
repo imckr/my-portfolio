@@ -8,9 +8,24 @@ export const Jet = JetBrains_Mono({
     display: "swap",
 });
 
+export const Jet_italic = JetBrains_Mono({
+    subsets: ["latin"],
+    weight: "600",
+    style: "italic",
+    variable: "--jetbrains-mono-italic",
+    display: "swap",
+});
+
 export const Jet_bold = JetBrains_Mono({
     subsets: ["latin"],
     weight: "600",
+    style: "normal",
+    variable: "--jetbrains-mono-bold",
+    display: "swap",
+});
+export const Jet_extrabold = JetBrains_Mono({
+    subsets: ["latin"],
+    weight: "800",
     style: "normal",
     variable: "--jetbrains-mono-bold",
     display: "swap",

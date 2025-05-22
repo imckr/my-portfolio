@@ -43,7 +43,7 @@ export default function Screen1() {
 
 
     return (
-        <div className="main-screen w-[69.8vw] h-[60vh] flex justify-center items-center border-black border-y-2 overflow-hidden">
+        <div className="main-screen w-full h-[60vh] flex justify-center items-center border-black border-y-2 overflow-hidden">
             {/* <PageLabel /> */}
             <div
                 className={`absolute flex flex-col right-[4%] ${Jet.className} top-[-1%] text-4xl`}
