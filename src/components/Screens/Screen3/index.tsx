@@ -18,11 +18,11 @@ export default function Screen3() {
             title: "LANGUAGES I KNOW :",
             width: "w-36",
             img: [
-                "./images/skill/Cpp.svg",
-                "./images/skill/Node.svg",
-                "./images/skill/java.svg",
-                "./images/skill/Rust.svg",
-                "./images/skill/python.svg",
+                "./images/Cpp.svg",
+                "./images/Node.svg",
+                "./images/java.svg",
+                "./images/Rust.svg",
+                "./images/python.svg",
             ],
         },
 
