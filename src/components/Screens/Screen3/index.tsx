@@ -142,7 +142,7 @@ export default function Screen3() {
                     ref={AboutPage}
                 >
                     <div className="flex flex-row">
-                        <div className="h-full flex flex-col justify-center overflow-x-scroll">
+                        <div className="h-full flex flex-col justify-center overflow-x-auto">
                             {/* <div> */}
                             {Object.entries(skilldetails).map(
                                 ([key, skill]) => (
