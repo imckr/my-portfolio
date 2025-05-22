@@ -1,6 +1,6 @@
 "use client";
 import { inter_bold, Cutive, Jet } from "@/Fonts/font";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Menu } from "@/animations/animScripts";
 import InnerContents from "../InnerContents";
@@ -9,17 +9,22 @@ import gsap from "gsap";
 import { handleEmailRedirect, handleTransition } from "@/Functions/handlers";
 import Screen1 from "./Screen1";
 import Screen2 from "./Screen2";
+import Screen3 from "./Screen3";
 
 gsap.registerPlugin();
 
 export default function Screen() {
     const [flag, setFlag] = useState(false);
     const [page, setPage] = useState(0);
-    const indC = useRef<HTMLImageElement>(null)
-    const indN = useRef<HTMLImageElement>(null)
+    const indC = useRef<HTMLImageElement>(null);
+    const indN = useRef<HTMLImageElement>(null);
     const indexes = [
-        <p key="1" onClick={()=>setPage(0)}>HOME</p>,
-        <p key="2" onClick={()=>setPage(1)}>PROJECTS</p>,
+        <p key="1" onClick={() => setPage(0)}>
+            HOME
+        </p>,
+        <p key="2" onClick={() => setPage(1)}>
+            PROJECTS
+        </p>,
         // <p key="2" onClick={handleTransition}>ASSIGNMENT</p>,
         <p key="3" onClick={handleTransition}>
             BLOG
@@ -73,6 +78,34 @@ export default function Screen() {
         }
     };
 
+    const scrollBuffer = useRef(0);
+    const threshold = 200; // Adjust this to control sensitivity
+
+    useEffect(() => {
+        interface WheelEventWithDeltaY extends WheelEvent {
+            deltaY: number;
+        }
+
+        const handleWheel = (e: WheelEventWithDeltaY): void => {
+            scrollBuffer.current += e.deltaY;
+
+            // Scrolling down
+            if (scrollBuffer.current >= threshold) {
+                setPage((prev: number) => Math.min(prev + 1, 2));
+                scrollBuffer.current = 0;
+            }
+
+            // Scrolling up
+            if (scrollBuffer.current <= -threshold) {
+                setPage((prev: number) => Math.max(prev - 1, 0));
+                scrollBuffer.current = 0;
+            }
+        };
+
+        window.addEventListener("wheel", handleWheel);
+        return () => window.removeEventListener("wheel", handleWheel);
+    }, []);
+
     return (
         <>
             <div className="bg flex justify-center w-screen h-screen">
@@ -86,7 +119,16 @@ export default function Screen() {
                                 height={17}
                                 alt="home"
                             />
-                            <p className={`${inter_bold.className}`}>/ { page === 0 ? ("Home") : page === 1 ? ("Projects") : ("")}</p>{" "}
+                            <p className={`${inter_bold.className}`}>
+                                /{" "}
+                                {page === 0
+                                    ? "Home"
+                                    : page === 1
+                                    ? "Projects"
+                                    : page === 2
+                                    ? "About"
+                                    : ""}
+                            </p>{" "}
                         </div>
 
                         <div className="flex">
@@ -132,15 +174,14 @@ export default function Screen() {
                             </div>
                         </div>
                     </div>
-                    {
-                        page === 0 ? (
-                            <Screen1 />
-                        ) : page === 1 ? (
-                            <Screen2 />
-                        ) : (
-                            <></>
-                        )
-                    }
+
+                    {page === 0 ? (
+                        <Screen1 />
+                    ) : page === 1 ? (
+                        <Screen2 />
+                    ) : (
+                        <Screen3 />
+                    )}
                     {/* <Screen1/> */}
                     {/* <Screen2 /> */}
                     <div className="flex justify-between py-[1vh] px-[1.6vh]">
