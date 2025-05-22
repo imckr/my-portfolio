@@ -71,7 +71,7 @@ export default function Screen2() {
 
 
     return (
-        <div className="screen-2 w-[69.8vw] h-[60vh] flex justify-start items-start p-4 border-black border-y-2 overflow-hidden">
+        <div className="screen-2 w-full h-[60vh] flex justify-start items-start p-4 border-black border-y-2 overflow-hidden">
             <div
                 className={`absolute flex flex-col right-[4%] ${Jet.className} top-[-1%] text-4xl`}
             >

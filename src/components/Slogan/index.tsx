@@ -22,7 +22,7 @@ export default function Slogan() {
 
   return (
     <>
-      <div className={`${Jet.className} text-2xl`}>
+      <div className={`${Jet.className} text-base`}>
         <p
           className="absolute -rotate-90 bottom-[10vh] left-[1.3vw] font-bold opacity-0"
           ref={ins}
