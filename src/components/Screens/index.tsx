@@ -14,11 +14,24 @@ import Screen3 from "./Screen3";
 gsap.registerPlugin();
 
 export default function Screen() {
+    
     const [flag, setFlag] = useState(false);
     const [page, setPage] = useState(0);
     const indC = useRef<HTMLImageElement>(null);
     const indN = useRef<HTMLImageElement>(null);
     const mainScreen = useRef<HTMLDivElement>(null);
+    const twitterLink: string = "https://x.com/ChintuRajwal";
+    const gitLink: string = "https://github.com/imckr";
+    const linkedInLink: string = "https://www.linkedin.com/in/chandra-kumar-rajwal-31774622a";
+    const indexRef = useRef(null);
+    const scrollBuffer = useRef(0);
+    const threshold = 200; // Adjust this to control sensitivity
+    const pageTitle = useRef<HTMLParagraphElement>(null);
+    const navigation = useRef<HTMLDivElement>(null);
+    const CPR = useRef<HTMLParagraphElement>(null);
+    // const facebookLink: string = "https://www.facebook.com/chetan.rajwal.14";
+    
+    
     const indexes = [
         <p key="1" onClick={() => setPage(0)}>
             HOME
@@ -33,13 +46,6 @@ export default function Screen() {
         <p key="4" onClick={() => setPage(2)}>ABOUT</p>,
     ];
 
-    const twitterLink: string = "https://x.com/ChintuRajwal";
-    const gitLink: string = "https://github.com/imckr";
-    // const facebookLink: string = "https://www.facebook.com/chetan.rajwal.14";
-    const linkedInLink: string =
-        "https://www.linkedin.com/in/chandra-kumar-rajwal-31774622a";
-
-    const indexRef = useRef(null);
 
     const handleOnClickMenu = () => {
         // Menu(".index", ".indexC", flag);
@@ -67,20 +73,18 @@ export default function Screen() {
         }
         setFlag(!flag);
 
-        if (!flag) {
-            const tl2 = gsap.timeline();
-            tl2.from(indexRef, {
-                duration: 2,
-                x: -100,
-                opacity: 0,
-            });
-        } else {
-            console.log("not running");
-        }
+        // if (!flag) {
+        //     const tl2 = gsap.timeline();
+        //     tl2.from(indexRef, {
+        //         duration: 2,
+        //         x: -100,
+        //         opacity: 0,
+        //     });
+        // } else {
+        //     console.log("not running");
+        // }
     };
 
-    const scrollBuffer = useRef(0);
-    const threshold = 200; // Adjust this to control sensitivity
 
     useEffect(() => {
         interface WheelEventWithDeltaY extends WheelEvent {
@@ -107,18 +111,60 @@ export default function Screen() {
         return () => window.removeEventListener("wheel", handleWheel);
     }, []);
 
+
     useGSAP(() => {
-        gsap.fromTo(mainScreen.current, {
-            width: "0vw",
-        }, {
-            width: "70vw",
-            duration: 6,
-            ease: "back.out(1.2)",
+        const tl = gsap.timeline();
+        const tl2 = gsap.timeline();
+        const tl3 = gsap.timeline();
+        const tl4 = gsap.timeline();
+        tl.fromTo(
+            mainScreen.current,
+            { width: "70vw",
+                
+             },
+            { width: "10vw", duration: 2, ease: "linear", }
+        ).to(
+            mainScreen.current,
+            { width: "70vw", duration: 3, ease: "back.out(1.2)" }
+        )
+        
+        tl2.to(pageTitle.current, {
+            opacity: 0,
+            duration: 0.1,
+            ease: "power4.inOut",
+        }).to(pageTitle.current, {
+            opacity: 1,
+            duration: 1,
+            delay: 4,
+            ease: "power4.inOut",
         })
-    },[page])
+
+        tl4.to(CPR.current, {
+            opacity: 0,
+            duration: 0.1,
+            ease: "power4.inOut",
+        }).to(CPR.current, {
+            opacity: 1,
+            duration: 1,
+            delay: 4,
+            ease: "power4.inOut",
+        })
+
+        tl3.to(navigation.current, {
+            opacity: 0,
+            duration: 0.1,
+            ease: "power4.inOut",
+        }).to(navigation.current, {
+            opacity: 1,
+            duration: 1,
+            delay: 4,
+            ease: "power4.inOut",
+        })
+    }, [page]);
 
     return (
         <>
+            {/* <div className="target-element w-28 h-28 border-3 bg-black" ref={sc}></div> */}
             <div className="bg flex justify-center w-screen h-screen">
                 <div
                     className="inner-screen flex flex-col justify-start mt-[12vh] w-[70vw] h-[70vh] border-black border-2 rounded-xl overflow-hidden"
@@ -133,7 +179,10 @@ export default function Screen() {
                                 height={17}
                                 alt="home"
                             />
-                            <p className={`${inter_bold.className}`}>
+                            <p
+                                className={`${inter_bold.className} opacity-0`}
+                                ref={pageTitle}
+                            >
                                 /{" "}
                                 {page === 0
                                     ? "Home"
@@ -146,16 +195,12 @@ export default function Screen() {
                         </div>
 
                         <div className="flex">
-                            <div ref={indexRef}>
+                            <div ref={navigation}>
                                 <ul>
                                     {indexes.map((index, i) => (
                                         <li
                                             key={i}
-                                            className={`inline-block ${
-                                                Jet.className
-                                            } px-4 cursor-pointer ${
-                                                flag ? "block" : "hidden"
-                                            }`}
+                                            className={`inline-block ${Jet.className} px-4  hoverable`}
                                         >
                                             {index}
                                         </li>
@@ -163,7 +208,7 @@ export default function Screen() {
                                 </ul>
                             </div>
                             <div
-                                className="flex gap-4 items-center px-4 cursor-pointer border-l-2 border-black"
+                                className="flex gap-4 items-center px-4 border-l-2 border-black"
                                 onClick={handleOnClickMenu}
                             >
                                 {flag ? (
@@ -199,12 +244,13 @@ export default function Screen() {
                     {/* <Screen1/> */}
                     {/* <Screen2 /> */}
                     <div className="flex justify-between py-[1vh] px-[1.6vh]">
-                        <p>Copyright ©2023 All rights reserved</p>
-                        <div className="flex gap-5 items-center cursor-pointer">
+                        <p ref={CPR}>Copyright ©2023 All rights reserved</p>
+                        <div className="flex gap-5 items-center">
                             <a
                                 href={linkedInLink}
                                 target="_blank"
                                 rel="noreferrer"
+                                className="cursor-none hoverable"
                             >
                                 <Image
                                     src="./images/linkedin.svg"
@@ -218,6 +264,7 @@ export default function Screen() {
                                 href={twitterLink}
                                 target="_blank"
                                 rel="noreferrer"
+                                className="cursor-none hoverable"
                             >
                                 <Image
                                     src="./images/twitter.svg"
@@ -227,7 +274,12 @@ export default function Screen() {
                                     className="w-6 h-6"
                                 />
                             </a>
-                            <a href={gitLink} target="_blank" rel="noreferrer">
+                            <a
+                                href={gitLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="cursor-none hoverable"
+                            >
                                 <Image
                                     src="./images/github.svg"
                                     alt="sociallinks"
@@ -241,7 +293,7 @@ export default function Screen() {
                                 alt="sociallinks"
                                 width={17}
                                 height={17}
-                                className="w-6 h-7"
+                                className="w-6 h-7 hoverable"
                                 onClick={handleEmailRedirect}
                             />
                         </div>

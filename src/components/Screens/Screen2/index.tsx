@@ -17,7 +17,7 @@ export default function Screen2() {
 
     const con = useRef<HTMLDivElement>(null);
 
-    const del = 0.5;
+    const del = 4;
 
     useGSAP(() => {
         gsap.from(T.current, {
@@ -136,18 +136,18 @@ export default function Screen2() {
                         </p>
                         <div>
                             <div
-                                className="flex justify-end w-full my-20 cursor-pointer pr-4"
+                                className="flex justify-end w-full my-20 pr-4"
                                 onClick={handleTransition}
                             >
                                 <Image
-                                    className="z-10 absolute w-40 mt-3 mr-3 max-[1080px]:w-32"
+                                    className="z-10 absolute w-40 mt-3 mr-3 max-[1080px]:w-32 hoverable"
                                     src="/images/ButtonBg.svg"
                                     width={500}
                                     height={500}
                                     alt=""
                                 />
                                 <Image
-                                    className="z-10 max-[1080px]:w-32 absolute w-40 hover:mr-3 hover:mt-3 transition-all duration-200 ease-in"
+                                    className="z-10 max-[1080px]:w-32 absolute w-40 hover:mr-3 hover:mt-3 transition-all duration-200 ease-in hoverable"
                                     src="/images/ButtonBg2.svg"
                                     width={500}
                                     height={500}
