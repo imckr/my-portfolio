@@ -12,6 +12,7 @@ export default function Screen1() {
     const E = useRef<HTMLParagraphElement>(null);
 
     const [del, setDel] = useState(1);
+    const introPage = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         gsap.from(E.current, {
@@ -38,8 +39,12 @@ export default function Screen1() {
             duration: 1,
             delay: del,
         });
+        gsap.from(introPage.current, {
+            opacity: 0,
+            duration: 1,
+            delay: del + 1,
+        });
     });
-
 
 
     return (
@@ -61,7 +66,7 @@ export default function Screen1() {
                     E
                 </p>
             </div>
-            <div className="flex justify-center items-center gap-6">
+            <div className="flex justify-center items-center gap-6" ref={introPage}>
                 <h1
                     className={`${Jet.className} intro text-6xl font-extrabold`}
                 >

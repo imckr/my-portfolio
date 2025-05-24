@@ -275,11 +275,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 export default function Animation() {
-  const [visible, setVisible] = useState(true);
+  // const [visible, setVisible] = useState(true);
 
   return (
     <>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {visible && (
           <motion.div
             className="box w-[200px] h-[200px] border-r-1/2 bg-slate-600 "
@@ -294,7 +294,9 @@ export default function Animation() {
           />
         )}
       </AnimatePresence>
-      <button onClick={() => setVisible(!visible)}>On/Off</button>
+      <button onClick={() => setVisible(!visible)}>On/Off</button> */}
+
+      
     </>
   );
 }

@@ -110,7 +110,7 @@ export default function Screen3() {
         gsap.from(AboutPage.current, {
             opacity: 0,
             duration: 1,
-            delay: del + 1,
+            delay: del + 3,
         });
     });
 
