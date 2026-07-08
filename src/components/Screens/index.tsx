@@ -22,7 +22,7 @@ export default function Screen() {
     const mainScreen = useRef<HTMLDivElement>(null);
     const twitterLink: string = "https://x.com/ChintuRajwal";
     const gitLink: string = "https://github.com/imckr";
-    const linkedInLink: string = "https://www.linkedin.com/in/chandrakrajwal";
+    const linkedInLink: string = "https://www.linkedin.com/in/chandra-kumar-rajwal-31774622a";
     const indexRef = useRef(null);
     const scrollBuffer = useRef(0);
     const threshold = 200; // Adjust this to control sensitivity
