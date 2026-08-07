@@ -6,27 +6,27 @@
     "link": "https://github.com/AnantaXe/ClickML",
     "technologies": [
         {
-            "icon": "/images/technologies/apache-airflow-icon.png",
+            "icon": "/images/Technologies/apacheairflowicon.png",
             "name": "Airflow"
         },
         {
-            "icon": "/images/technologies/Astronomer-icon.png",
+            "icon": "/images/Technologies/Astronomericon.png",
             "name": "Astronomer"
         },
         {
-            "icon": "/images/technologies/Fastapi-icon.svg",
+            "icon": "/images/Technologies/FastapiIcon.svg",
             "name": "FastAPI"
         },
         {
-            "icon": "/images/technologies/apache-spark-icon.png",
+            "icon": "/images/Technologies/apachesparkicon.png",
             "name": "Apache Spark"
         },
         {
-            "icon": "/images/technologies/aws-icon.png",
+            "icon": "/images/Technologies/awsicon.png",
             "name": "AWS"
         },
         {
-            "icon": "/images/technologies/PyPI-Logo.svg",
+            "icon": "/images/Technologies/PyPILogo.svg",
             "name": "PyPI"
         }
     ]
@@ -38,19 +38,19 @@
     "link": "https://github.com/imckr/llm-service",
     "technologies": [
         {
-            "icon": "/images/technologies/Fastapi-icon.svg",
+          "icon": "/images/Technologies/FastapiIcon.svg",
             "name": "FastAPI"
         },
         {
-            "icon": "/images/technologies/vllm-color.svg",
+            "icon": "/images/Technologies/vllmcolor.svg",
             "name": "vLLM"
         },
         {
-            "icon": "/images/technologies/openai-icon.svg",
+            "icon": "/images/Technologies/openaiicon.svg",
             "name": "OpenAI"
         },
         {
-            "icon": "/images/technologies/redis-icon.svg",
+            "icon": "/images/Technologies/redisicon.svg",
             "name": "Redis"
         }
     ]
@@ -68,15 +68,15 @@
     "link": "https://github.com/imckr/lex"
   },
   {
-    "title": "ckr blog",
-    "description": "A personal blog website built with Next.js, TypeScript, Tailwind CSS, and MDX. It features a clean and responsive design and allows for easy content creation using Markdown.",
-    "image": "/images/ckr-blog.png",
-    "link": "https://github.com/imckr/ckr-blog"
-  },
-  {
     "title": "micrograd",
     "description": "Rebuilt and experimented with a Python-based autodiff engine inspired by Karpathy's Macrograd, with custom extensions for deeper exploration.",
     "image": "/images/micrograd.svg",
     "link": "https://github.com/imckr/micrograd"
+  },
+  {
+      "title": "ckr blog",
+      "description": "A personal blog website built with Next.js, TypeScript, Tailwind CSS, and MDX. It features a clean and responsive design and allows for easy content creation using Markdown.",
+      "image": "/images/ckr-blog.png",
+      "link": "https://github.com/imckr/ckr-blog"
   }
 ]
