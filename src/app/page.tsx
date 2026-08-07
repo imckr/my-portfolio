@@ -1,37 +1,47 @@
 "use client";
-import { Jet, inter_bold } from "@/Fonts/font";
+import { Jet } from "@/Fonts/font";
 import Marquee from "@/components/Marquee";
 import Margins from "@/components/Margins";
+import MobileHome from "@/components/MobileHome";
 import Slogan from "@/components/Slogan";
 // import PageLabel from "@/components/PageLabel";
 import Screen from "@/components/Screens";
 import { useRef, useEffect, useState } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 
 export default function Home() {
-    // const [zoomed, setZoomed] = useState(false);
-
-    // useEffect(() => {
-    //     const handleZoom = () => {
-    //         const ratio = window.devicePixelRatio;
-    //         setZoomed(ratio !== 1);
-    //     };
-
-    //     handleZoom();
-    //     window.addEventListener("resize", handleZoom);
-    //     return () => window.removeEventListener("resize", handleZoom);
-    // }, []);
-
-    // const dot = useRef<HTMLDivElement>(null);
-    // const ring = useRef<HTMLDivElement>(null);
-
+    const [isDesktop, setIsDesktop] = useState(false);
     const dotRef = useRef<HTMLDivElement>(null);
     const ringRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+        const updateViewport = () => {
+            setIsDesktop(mediaQuery.matches);
+        };
+
+        updateViewport();
+        mediaQuery.addEventListener("change", updateViewport);
+
+        return () => mediaQuery.removeEventListener("change", updateViewport);
+    }, []);
+
+    useEffect(() => {
+        document.body.style.overflow = isDesktop ? "hidden" : "auto";
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isDesktop]);
+
+    useEffect(() => {
+        if (!isDesktop) {
+            return;
+        }
+
         const dot = dotRef.current;
         const ring = ringRef.current;
+        let animationFrameId = 0;
 
         let mouseX = 0;
         let mouseY = 0;
@@ -62,7 +72,7 @@ export default function Home() {
                 ring.style.top = `${ringY}px`;
             }
 
-            requestAnimationFrame(animate);
+            animationFrameId = requestAnimationFrame(animate);
         };
 
         const addHover = () => {
@@ -81,7 +91,7 @@ export default function Home() {
         });
 
         document.addEventListener("mousemove", handleMouseMove);
-        animate();
+        animationFrameId = requestAnimationFrame(animate);
 
         return () => {
             document.removeEventListener("mousemove", handleMouseMove);
@@ -89,39 +99,33 @@ export default function Home() {
                 el.removeEventListener("mouseenter", addHover);
                 el.removeEventListener("mouseleave", removeHover);
             });
+            cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [isDesktop]);
 
     return (
         <>
-            <div id="cursor">
-                <div className="cursor-dot" ref={dotRef}></div>
-                <div className="cursor-ring" ref={ringRef}></div>
+            <div className="hidden lg:block">
+                <div id="cursor">
+                    <div className="cursor-dot" ref={dotRef}></div>
+                    <div className="cursor-ring" ref={ringRef}></div>
+                </div>
+
+                <Margins />
+                <Slogan />
+                <Screen />
+                <div className={`upper ${Jet.className} text-sm absolute flex overflow-hidden z-[-1%] ml-[4%] w-[88%] top-[-1%]`}>
+                    <Marquee />
+                </div>
+
+                <div className={`upper ${Jet.className} text-sm absolute flex overflow-hidden z-[-1%] w-[88%] bottom-[1%] right-[4%]`}>
+                    <Marquee />
+                </div>
             </div>
 
-            {/* {zoomed ? ( */}
-                {/* <div className="w-screen h-screen flex justify-center items-center text-2xl">
-                    Zoom is enabled — for best experience, reset to 100% (Ctrl +
-                    0)
-                </div> */}
-            {/* ) : ( */}
-                <>
-                    <Margins />
-                    <Slogan />
-                    <Screen />
-                    <div
-                        className={`upper ${Jet.className} text-sm absolute flex overflow-hidden z-[-1%] ml-[4%] w-[88%] top-[-1%]`}
-                    >
-                        <Marquee />
-                    </div>
-
-                    <div
-                        className={`upper ${Jet.className} text-sm absolute flex overflow-hidden z-[-1%] w-[88%] bottom-[1%] right-[4%]`}
-                    >
-                        <Marquee />
-                    </div>
-                </>
-            {/* )} */}
+            <div className="block lg:hidden">
+                <MobileHome />
+            </div>
         </>
     );
 }
