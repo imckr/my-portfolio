@@ -4,9 +4,29 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
-import { handleTransition } from "@/Functions/handlers";
+import projectData from "../../../app/projects/projects.json";
 
-export default function Screen2() {
+type Screen2Props = {
+    onScrollLockChange?: (locked: boolean) => void;
+    onScrollUnlock?: () => void;
+};
+
+type Technology = {
+    icon: string;
+    name: string;
+};
+
+type ProjectEntry = {
+    title: string;
+    description: string;
+    image: string;
+    link: string;
+    technologies: Technology[];
+};
+
+const projects = projectData as ProjectEntry[];
+
+export default function Screen2({ onScrollLockChange, onScrollUnlock }: Screen2Props) {
     const P = useRef<HTMLParagraphElement>(null);
     const R = useRef<HTMLParagraphElement>(null);
     const O = useRef<HTMLParagraphElement>(null);
@@ -102,41 +122,67 @@ export default function Screen2() {
 
             {/* <div className="w-[69.8vw]"> */}
             {/* <h1>Hello this is project page !</h1> */}
-            <div className="flex flex-col w-[69.8vw] h-[60vh]" ref={con}>
+            <div className="relative flex flex-col w-full h-[58vh] p-2" ref={con}>
+{/* screen */}
                 <div
-                    className={`w-full ${Jet.className} h-[10vh] items-center flex`}
+                    className="projects_list flex flex-row gap-6 p-2 h-[56vh] overflow-x-auto"
+                    onWheelCapture={(event) => event.stopPropagation()}
+                    onMouseEnter={() => {
+                        onScrollLockChange?.(true);
+                    }}
+                    onMouseLeave={() => {
+                        onScrollLockChange?.(false);
+                        onScrollUnlock?.();
+                    }}
                 >
-                    <p className="font-extrabold text-6xl">Blog Design</p>
-                </div>
-
-                <div className="project_info flex py-8 h-[48vh]">
-                    <div className="project_img w-1/3">
-                        <Image
-                            src="/images/P1.jpg"
-                            alt="project"
-                            width={500}
-                            height={500}
-                            className="h-full object-cover rounded-lg"
-                        />
-                    </div>
-                    <div className="project_desc pl-4 w-2/3">
-                        <p className="text-lg font-medium">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Sed quis ex finibus, scelerisque neque vel,
-                            lobortis sapien. Aliquam eleifend, lectus in feugiat
-                            malesuada, justo justo hendrerit eros, ut tempor
-                            turpis nulla ac mauris. In tempor at ipsum pulvinar
-                            blandit. Maecenas pharetra egestas faucibus. Nullam
-                            eget dui efficitur, malesuada metus id, bibendum
-                            turpis. Suspendisse eu ex vestibulum, imperdiet nunc
-                            et, bibendum ipsum. Curabitur congue dapibus ipsum
-                            congue finibus. Suspendisse venenatis feugiat quam
-                            non molestie. Proin tellus tellus, egestas id
-                            aliquam sed, sodales at enim.
-                        </p>
-                        <div>
+{/* project list */}
+                    {projects.map((project) => (
+                        <div className="project flex-shrink-0 w-full flex flex-col rounded-lg overflow-hidden" key={project.title}>
+                            <div className="relative w-full aspect-[16/9] bg-black
+                             overflow-hidden">
+                                <Image
+                                    src={project.image}
+                                    alt={project.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 70vw"
+                                    className="object-contain p-4"
+                                />
+                            </div>
+                            <div className="p-4 flex flex-col gap-2">
+                                <div className="flex justify-between items-center gap-6">
+                                    <h3 className="font-bold text-2xl">{project.title}</h3>
+                                    <div className="technologies_used flex gap-2">
+                                        {project.technologies?.map((tech, index) => (
+                                            <div key={index} className="tech_icon flex items-center gap-1 p-1 px-4 rounded-xl bg-black">
+                                                <Image
+                                                    key={index}
+                                                    src={tech.icon}
+                                                    alt={tech.name}
+                                                    width={15}
+                                                    height={15}
+                                                    className="object-contain"
+                                                    />
+                                                <p className="text-xs text-white">{tech.name}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <p className="text-lg text-gray-600">{project.description}</p>
+                                <a
+                                    href={project.link}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-blue-500 hover:text-blue-700 font-semibold text-lg"
+                                >
+                                    View Project →
+                                </a>
+                            </div>
+                        </div>
+                    ))}
+                    {/* <div className="project pl-4 w-2/3 border-2">
+                
                             <div
-                                className="flex justify-end w-full my-20 pr-4"
+                                className="flex justify-end w-full my-20 pr-4 border-2"
                                 onClick={handleTransition}
                             >
                                 <Image
@@ -154,8 +200,8 @@ export default function Screen2() {
                                     alt=""
                                 />
                             </div>
-                        </div>
-                    </div>
+                        
+                    </div> */}
                 </div>
             </div>
             {/* </div> */}

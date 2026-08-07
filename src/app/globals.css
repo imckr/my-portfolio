@@ -171,3 +171,65 @@ body {
   background-color: black;
   mix-blend-mode: difference;
 }
+
+@keyframes lockBadgeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-0.35rem) scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes unlockBadgeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  45% {
+    transform: translateY(-0.15rem) scale(1.08) rotate(-4deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-0.45rem) scale(0.82) rotate(4deg);
+  }
+}
+
+.lock-badge {
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.lock-badge-visible {
+  opacity: 1;
+  animation: lockBadgeIn 180ms ease-out both;
+}
+
+.lock-badge-hidden {
+  opacity: 0;
+}
+
+.unlock-badge {
+  animation: unlockBadgeOut 480ms ease-in both;
+}
+
+.lock-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lock-icon svg {
+  stroke: black;
+}
+
+.lock-icon-locked svg {
+  animation: lockBadgeIn 180ms ease-out both;
+}
+
+.lock-icon-unlocked svg {
+  animation: unlockBadgeOut 480ms ease-in both;
+}

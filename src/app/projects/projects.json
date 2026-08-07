@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Click ML",
+    "description": "ClickML - build MLOps workflow (just click, save and use)",
+    "image": "/images/ClickML.png",
+    "link": "https://github.com/AnantaXe/ClickML",
+    "technologies": [
+        {
+            "icon": "/images/technologies/apache-airflow-icon.png",
+            "name": "Airflow"
+        },
+        {
+            "icon": "/images/technologies/Astronomer-icon.png",
+            "name": "Astronomer"
+        },
+        {
+            "icon": "/images/technologies/Fastapi-icon.svg",
+            "name": "FastAPI"
+        },
+        {
+            "icon": "/images/technologies/apache-spark-icon.png",
+            "name": "Apache Spark"
+        },
+        {
+            "icon": "/images/technologies/aws-icon.png",
+            "name": "AWS"
+        },
+        {
+            "icon": "/images/technologies/PyPI-Logo.svg",
+            "name": "PyPI"
+        }
+    ]
+  },
+  {
+    "title": "LLM Inference Service",
+    "description": "A fast, secure local LLM inference service with API-key authentication, rate limiting, latency tracking, and structured logging. Runs open-source models locally, exposes both custom and OpenAI-compatible endpoints, and includes a dashboard for testing and monitoring. Docker-ready and easy to deploy.",
+    "image": "/images/llmservices.png",
+    "link": "https://github.com/imckr/llm-service",
+    "technologies": [
+        {
+            "icon": "/images/technologies/Fastapi-icon.svg",
+            "name": "FastAPI"
+        },
+        {
+            "icon": "/images/technologies/vllm-color.svg",
+            "name": "vLLM"
+        },
+        {
+            "icon": "/images/technologies/openai-icon.svg",
+            "name": "OpenAI"
+        },
+        {
+            "icon": "/images/technologies/redis-icon.svg",
+            "name": "Redis"
+        }
+    ]
+  },
+  {
+    "title": "Adaptive Learning Platform",
+    "description": "CLI based Adaptive Learning Game (supports five subjects). \nAI-Powered Dynamic Quiz Generator with Adaptive Difficulty, ML Engine & Performance Tracking",
+    "image": "/images/AdaptiveLearning.png",
+    "link": "https://github.com/imckr/adaptive-learning"
+  },
+  {
+    "title": "leX",
+    "description": "A lightweight and educational version control system (VCS) built from scratch in C++. Supports staging, object storage, hashing, and custom indexing for tracking file changes without using any external VCS.",
+    "image": "/images/leX.png",
+    "link": "https://github.com/imckr/lex"
+  },
+  {
+    "title": "ckr blog",
+    "description": "A personal blog website built with Next.js, TypeScript, Tailwind CSS, and MDX. It features a clean and responsive design and allows for easy content creation using Markdown.",
+    "image": "/images/ckr-blog.png",
+    "link": "https://github.com/imckr/ckr-blog"
+  },
+  {
+    "title": "micrograd",
+    "description": "Rebuilt and experimented with a Python-based autodiff engine inspired by Karpathy's Macrograd, with custom extensions for deeper exploration.",
+    "image": "/images/micrograd.svg",
+    "link": "https://github.com/imckr/micrograd"
+  }
+]

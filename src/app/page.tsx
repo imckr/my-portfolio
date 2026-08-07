@@ -10,18 +10,18 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 export default function Home() {
-    const [zoomed, setZoomed] = useState(false);
+    // const [zoomed, setZoomed] = useState(false);
 
-    useEffect(() => {
-        const handleZoom = () => {
-            const ratio = window.devicePixelRatio;
-            setZoomed(ratio !== 1);
-        };
+    // useEffect(() => {
+    //     const handleZoom = () => {
+    //         const ratio = window.devicePixelRatio;
+    //         setZoomed(ratio !== 1);
+    //     };
 
-        handleZoom();
-        window.addEventListener("resize", handleZoom);
-        return () => window.removeEventListener("resize", handleZoom);
-    }, []);
+    //     handleZoom();
+    //     window.addEventListener("resize", handleZoom);
+    //     return () => window.removeEventListener("resize", handleZoom);
+    // }, []);
 
     // const dot = useRef<HTMLDivElement>(null);
     // const ring = useRef<HTMLDivElement>(null);
@@ -99,12 +99,12 @@ export default function Home() {
                 <div className="cursor-ring" ref={ringRef}></div>
             </div>
 
-            {zoomed ? (
-                <div className="w-screen h-screen flex justify-center items-center text-2xl">
+            {/* {zoomed ? ( */}
+                {/* <div className="w-screen h-screen flex justify-center items-center text-2xl">
                     Zoom is enabled — for best experience, reset to 100% (Ctrl +
                     0)
-                </div>
-            ) : (
+                </div> */}
+            {/* ) : ( */}
                 <>
                     <Margins />
                     <Slogan />
@@ -121,7 +121,7 @@ export default function Home() {
                         <Marquee />
                     </div>
                 </>
-            )}
+            {/* )} */}
         </>
     );
 }
