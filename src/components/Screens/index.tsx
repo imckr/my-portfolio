@@ -17,6 +17,8 @@ export default function Screen() {
     
     const [flag, setFlag] = useState(false);
     const [page, setPage] = useState(0);
+    const [scrollLocked, setScrollLocked] = useState(false);
+    const [unlockPulse, setUnlockPulse] = useState(false);
     const indC = useRef<HTMLImageElement>(null);
     const indN = useRef<HTMLImageElement>(null);
     const mainScreen = useRef<HTMLDivElement>(null);
@@ -29,6 +31,7 @@ export default function Screen() {
     const pageTitle = useRef<HTMLParagraphElement>(null);
     const navigation = useRef<HTMLDivElement>(null);
     const CPR = useRef<HTMLParagraphElement>(null);
+    const scrollCooldown = useRef(false);
     // const facebookLink: string = "https://www.facebook.com/chetan.rajwal.14";
     
     
@@ -50,28 +53,31 @@ export default function Screen() {
     const handleOnClickMenu = () => {
         // Menu(".index", ".indexC", flag);
         const tl = gsap.timeline();
-        if (flag) {
-            tl.to(indN, {
-                opacity: 0,
-                duration: 0.3,
-                ease: "power4.inOut",
-            }).to(indC, {
-                opacity: 1,
-                duration: 0.3,
-                ease: "power4.inOut",
-            });
-        } else {
-            tl.to(indC, {
-                opacity: 0,
-                duration: 0.3,
-                ease: "power4.inOut",
-            }).to(indN, {
-                opacity: 1,
-                duration: 0.3,
-                ease: "power4.inOut",
-            });
-        }
-        setFlag(!flag);
+        setFlag((currentFlag) => {
+            if (currentFlag) {
+                tl.to(indN.current, {
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: "power4.inOut",
+                }).to(indC.current, {
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: "power4.inOut",
+                });
+            } else {
+                tl.to(indC.current, {
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: "power4.inOut",
+                }).to(indN.current, {
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: "power4.inOut",
+                });
+            }
+
+            return !currentFlag;
+        });
 
         // if (!flag) {
         //     const tl2 = gsap.timeline();
@@ -87,27 +93,53 @@ export default function Screen() {
 
 
     useEffect(() => {
-        interface WheelEventWithDeltaY extends WheelEvent {
-            deltaY: number;
-        }
+        const handleWheel = (e: WheelEvent): void => {
+            const pointerElement = document.elementFromPoint(e.clientX, e.clientY);
+            if (pointerElement instanceof Element && pointerElement.closest(".projects_list")) {
+                return;
+            }
 
-        const handleWheel = (e: WheelEventWithDeltaY): void => {
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                scrollBuffer.current = 0;
+                return;
+            }
+
+            if (scrollCooldown.current) {
+                return;
+            }
+
+            const direction = Math.sign(e.deltaY);
+            const currentBufferDirection = Math.sign(scrollBuffer.current);
+
+            if (direction !== 0 && currentBufferDirection !== 0 && direction !== currentBufferDirection) {
+                scrollBuffer.current = 0;
+            }
+
             scrollBuffer.current += e.deltaY;
 
-            // Scrolling down
-            if (scrollBuffer.current >= threshold) {
-                setPage((prev: number) => Math.min(prev + 1, 2));
-                scrollBuffer.current = 0;
+            if (Math.abs(scrollBuffer.current) < threshold) {
+                return;
             }
 
-            // Scrolling up
-            if (scrollBuffer.current <= -threshold) {
-                setPage((prev: number) => Math.max(prev - 1, 0));
-                scrollBuffer.current = 0;
-            }
+            e.preventDefault();
+            scrollCooldown.current = true;
+
+            setPage((prev: number) => {
+                if (scrollBuffer.current > 0) {
+                    return Math.min(prev + 1, 2);
+                }
+
+                return Math.max(prev - 1, 0);
+            });
+
+            scrollBuffer.current = 0;
+
+            window.setTimeout(() => {
+                scrollCooldown.current = false;
+            }, 450);
         };
 
-        window.addEventListener("wheel", handleWheel);
+        window.addEventListener("wheel", handleWheel, { passive: false });
         return () => window.removeEventListener("wheel", handleWheel);
     }, []);
 
@@ -170,7 +202,7 @@ export default function Screen() {
                     className="inner-screen flex flex-col justify-start mt-[12vh] w-[70vw] h-[70vh] border-black border-2 rounded-xl overflow-hidden"
                     ref={mainScreen}
                 >
-                    <div className="flex justify-between w-full items-center h-[5vh]">
+                    <div className="relative flex justify-between w-full items-center h-[5vh]">
                         <div className="ml-4 flex items-center gap-2">
                             <Image
                                 src="./images/HomeIcon.svg"
@@ -179,10 +211,7 @@ export default function Screen() {
                                 height={17}
                                 alt="home"
                             />
-                            <p
-                                className={`${inter_bold.className} opacity-0`}
-                                ref={pageTitle}
-                            >
+                            <p className={`${inter_bold.className} opacity-0`} ref={pageTitle}>
                                 /{" "}
                                 {page === 0
                                     ? "Home"
@@ -191,45 +220,81 @@ export default function Screen() {
                                     : page === 2
                                     ? "About"
                                     : ""}
-                            </p>{" "}
+                            </p>
+                        </div>
+
+                        <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2">
+                            <div
+                                className={`lock-badge flex items-center gap-2 rounded-full border border-black bg-[#F7FFF0] px-3 py-1 shadow-[0_6px_0_0_rgba(0,0,0,0.12)] ${
+                                    scrollLocked
+                                        ? "lock-badge-visible"
+                                        : unlockPulse
+                                        ? "unlock-badge"
+                                        : "lock-badge-hidden"
+                                }`}
+                                aria-live="polite"
+                            >
+                                <span className={`lock-icon ${scrollLocked ? "lock-icon-locked" : "lock-icon-unlocked"}`}>
+                                    {scrollLocked ? (
+                                        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
+                                            <path
+                                                d="M7 10V8a5 5 0 0 1 10 0v2"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                            />
+                                            <rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="2" />
+                                            <path d="M12 13v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                        </svg>
+                                    ) : (
+                                        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
+                                            <path
+                                                d="M7 10V8a5 5 0 0 1 9.2-2.7"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                            />
+                                            <rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="2" />
+                                            <path d="M14.5 13.5 18 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                        </svg>
+                                    )}
+                                </span>
+                                <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em]">
+                                    {scrollLocked ? "Vertical Scroll Locked" : "Vertical Scroll Unlocked"}
+                                </span>
+                            </div>
                         </div>
 
                         <div className="flex">
                             <div ref={navigation}>
                                 <ul>
                                     {indexes.map((index, i) => (
-                                        <li
-                                            key={i}
-                                            className={`inline-block ${Jet.className} px-4  hoverable`}
-                                        >
+                                        <li key={i} className={`inline-block ${Jet.className} px-4 hoverable`}>
                                             {index}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                             <div
-                                className="flex gap-4 items-center px-4 border-l-2 border-black"
+                                className="relative flex h-7 w-7 items-center justify-center gap-4 border-l-2 border-black px-4"
                                 onClick={handleOnClickMenu}
                             >
-                                {flag ? (
-                                    <Image
-                                        src="./images/Cross.svg"
-                                        className="indexC opacity-0 w-7 h-7"
-                                        width={17}
-                                        height={17}
-                                        alt="menu"
-                                        ref={indC}
-                                    />
-                                ) : (
-                                    <Image
-                                        src="./images/Menu.svg"
-                                        className="index w-7 h-7"
-                                        width={17}
-                                        height={17}
-                                        alt="menu"
-                                        ref={indN}
-                                    />
-                                )}
+                                <Image
+                                    src="./images/Cross.svg"
+                                    className={`indexC absolute h-7 w-7 transition-opacity duration-300 ${flag ? "opacity-100" : "opacity-0"}`}
+                                    width={17}
+                                    height={17}
+                                    alt="menu close"
+                                    ref={indC}
+                                />
+                                <Image
+                                    src="./images/Menu.svg"
+                                    className={`index h-7 w-7 transition-opacity duration-300 ${flag ? "opacity-0" : "opacity-100"}`}
+                                    width={17}
+                                    height={17}
+                                    alt="menu open"
+                                    ref={indN}
+                                />
                             </div>
                         </div>
                     </div>
@@ -237,7 +302,19 @@ export default function Screen() {
                     {page === 0 ? (
                         <Screen1 />
                     ) : page === 1 ? (
-                        <Screen2 />
+                        <Screen2
+                            onScrollLockChange={(locked) => {
+                                setScrollLocked(locked);
+                                if (locked) {
+                                    setUnlockPulse(false);
+                                }
+                            }}
+                            onScrollUnlock={() => {
+                                setScrollLocked(false);
+                                setUnlockPulse(true);
+                                window.setTimeout(() => setUnlockPulse(false), 500);
+                            }}
+                        />
                     ) : (
                         <Screen3 />
                     )}
